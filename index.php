@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>กำลังเข้าสู่ระบบ | PROJECT MANAGEMENT</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: linear-gradient(135deg, #eef1f9 0%, #dfe4f7 55%, #cfd8f5 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    color: #1e293b;
+    position: relative;
+  }
+
+  /* บลอบสีฟ้านุ่มๆ ลอยพื้นหลัง ให้กลืนกับโทนหน้า login */
+  .aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.35;
+    animation: breathe ease-in-out infinite alternate;
+  }
+  .blob-1 {
+    width: 460px; height: 460px;
+    background: #0d6efd;
+    top: -160px; left: -140px;
+    animation-duration: 8s;
+  }
+  .blob-2 {
+    width: 380px; height: 380px;
+    background: #38bdf8;
+    bottom: -140px; right: -120px;
+    animation-duration: 10s;
+    animation-delay: -3s;
+  }
+  @keyframes breathe {
+    from { transform: scale(1); }
+    to   { transform: scale(1.15); }
+  }
+
+  /* การ์ดหลัก อิงทรงโค้งมนแบบหน้า login */
+  .card {
+    position: relative;
+    z-index: 10;
+    width: 380px;
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 56px 40px 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 30px 70px -20px rgba(13, 110, 253, 0.28), 0 10px 30px rgba(15, 23, 42, 0.06);
+    overflow: hidden;
+  }
+
+  /* แถบโค้งสีฟ้าไล่เฉด มุมบนขวา อิงจากพาเนลฟ้าในภาพตัวอย่าง */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -70px; right: -70px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0d6efd, #38bdf8);
+    opacity: 0.12;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    bottom: -90px; left: -60px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #38bdf8, #0d6efd);
+    opacity: 0.08;
+  }
+
+  .logo-ring {
+    position: relative;
+    z-index: 2;
+    width: 108px;
+    height: 108px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+  }
+  .logo-ring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(13, 110, 253, 0.16) 0%, rgba(13, 110, 253, 0) 70%);
+    animation: pulseRing 2.6s ease-in-out infinite;
+  }
+  @keyframes pulseRing {
+    0%, 100% { transform: scale(0.9); opacity: 0.6; }
+    50%       { transform: scale(1.14); opacity: 1; }
+  }
+
+  .brand-logo {
+    position: relative;
+    z-index: 2;
+    width: 78px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 50%;
+    filter: drop-shadow(0px 6px 14px rgba(13, 110, 253, 0.25));
+    animation: float 3.2s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+  }
+
+  .brand {
+    position: relative;
+    z-index: 2;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    color: #0f172a;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .label {
+    position: relative;
+    z-index: 2;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #7c8aa5;
+    margin-bottom: 40px;
+  }
+
+  .bar-wrap { position: relative; z-index: 2; width: 230px; margin-bottom: 16px; }
+  .bar-track {
+    width: 100%;
+    height: 6px;
+    background: #eef2fb;
+    position: relative;
+    border-radius: 50px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0d6efd, #38bdf8);
+    width: 0%;
+    position: relative;
+    transition: width 0.1s linear;
+    border-radius: 50px;
+  }
+  .bar-fill::after {
+    content: '';
+    position: absolute;
+    right: -3px; top: -3px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #0d6efd;
+    box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+  }
+
+  .status {
+    position: relative;
+    z-index: 2;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #94a3b8;
+    height: 16px;
+    transition: opacity 0.25s;
+  }
+</style>
+
+<!-- ตั้งค่าให้เด้งไปหน้า Login อัตโนมัติใน 4 วินาที -->
+<meta http-equiv="refresh" content="4;url=auth/login.php">
+</head>
+<body>
+
+<div class="aurora">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+</div>
+
+<div class="card">
+  <div class="logo-ring">
+    <img src="https://www.bigsara.co.th/images/LOGO-Bigsara.png" alt="BIGSARA Logo" class="brand-logo">
+  </div>
+
+  <div class="brand">PROJECT MANAGEMENT</div>
+  <div class="label">BIGSARA COMPANY</div>
+
+  <div class="bar-wrap">
+    <div class="bar-track">
+      <div class="bar-fill" id="bar"></div>
+    </div>
+  </div>
+
+  <div class="status" id="status">กำลังเริ่มต้นระบบ...</div>
+</div>
+
+<script>
+  const bar    = document.getElementById('bar');
+  const status = document.getElementById('status');
+  const steps  = [
+    { at: 0,  label: 'กำลังเริ่มต้นระบบ...' },
+    { at: 30, label: 'กำลังโหลดข้อมูลโครงสร้าง...' },
+    { at: 65, label: 'กำลังตรวจสอบความปลอดภัย...' },
+    { at: 90, label: 'พร้อมใช้งาน' },
+  ];
+
+  const duration = 3800; 
+  const start = performance.now();
+
+  function tick(now) {
+    const elapsed = now - start;
+    const pct = Math.min((elapsed / duration) * 100, 100);
+    bar.style.width = pct + '%';
+
+    const s = [...steps].reverse().find(x => pct >= x.at);
+    if (s && status.textContent !== s.label) {
+      status.style.opacity = '0';
+      setTimeout(() => { status.textContent = s.label; status.style.opacity = '1'; }, 150);
+    }
+
+    if (pct < 100) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+</script>
+</body>
+</html>
